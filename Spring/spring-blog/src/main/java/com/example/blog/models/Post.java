@@ -18,6 +18,7 @@ public class Post {
         return id;
     }
 
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -53,4 +54,15 @@ public class Post {
     public void setViews(int views) {
         this.views = views;
     }
+
+    public Post() {
+    }
+
+    public Post(String title, String anons, String full_text ) {
+        this.title = title;
+        this.anons = anons;
+        this.full_text = full_text;
+    }
+
+
 }
