@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${title}"></title>
+    <title>Site blog</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
@@ -9,14 +9,13 @@
 
 <header th:insert="blocks/header :: header"></header>
 
+
 <div class="container">
-    <h2>This is blog home page</h2>
+    <h1>Site blog</h1>
+    <h3>This is blog home page</h3>
 </div>
 
-
-
 <div th:insert="blocks/footer :: footer"></div>
-
 
 </body>
 </html>
