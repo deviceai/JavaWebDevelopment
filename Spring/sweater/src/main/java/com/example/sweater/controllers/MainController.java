@@ -4,12 +4,10 @@ import com.example.sweater.domain.Message;
 import com.example.sweater.repo.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -18,12 +16,12 @@ public class MainController {
     @Autowired
     private MessageRepo messageRepo;
 
-    @GetMapping("/")
+    @GetMapping("/main")
     public String home(Map<String, Object> model) {
         Iterable<Message> messages = messageRepo.findAll();
 
         model.put("messages", messages);
-        return "home";
+        return "main";
     }
 
     @PostMapping("add")
@@ -40,7 +38,7 @@ public class MainController {
         Iterable<Message> messages = messageRepo.findAll();
         model.put("message", messages);
 
-        return "redirect:/";
+        return "redirect:/main";
     }
 
     @PostMapping("filter")
@@ -56,7 +54,7 @@ public class MainController {
             messages = messageRepo.findAll();
         }
         model.put("messages", messages);
-        return "home";
+        return "main";
     }
 
 }
