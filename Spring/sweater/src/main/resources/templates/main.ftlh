@@ -3,7 +3,7 @@
     <@c.page>
 
 <#-- // Logout \\-->
-        <div> <@l.logout></@l.logout> </div>
+        <div> <@l.logout></@l.logout> <span> Pages: <a href="/user">Users</a></span></div>
 
 <#-- // Adding new message \\-->
         <div>
