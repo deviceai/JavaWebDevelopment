@@ -18,7 +18,8 @@ public class Registration {
     private UserRepo userRepo;
 
     @GetMapping("/registration")
-    public String registratio (){
+    public String registration (Map<String, Object> model){
+        model.put("message", "Please register!");
         return "registration";
     }
 
