@@ -1,49 +1,66 @@
 <#import "parts/common.ftlh" as c>
-<#import "parts/login.ftlh" as l>
     <@c.page>
 
-<#-- // Logout \\-->
-        <div> <@l.logout></@l.logout> <span> Pages: <a href="/user">Users</a></span></div>
-
-<#-- // Adding new message \\-->
-        <div>
-            <h3>Add your message</h3>
-            <form method="post" action="add" enctype="multipart/form-data">
-                <input type="text" name="text" placeholder="Enter message"/>
-                <input type="text" name="tag" placeholder="Tag"/>
-                <input type="file" name="file" />
-                <input type="hidden" name="_csrf" value="${_csrf.token}" />
-                <button type="submit">Add message</button>
-            </form>
-            <br />
+    <#--  // Filter \\-->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <form method="get" action="/main" class="form-inline">
+                    <input type="text" name="filter" class="form-control" value="${filter?ifExists}" placeholder="Search by tag"/>
+                    <button type="submit" class="btn btn-primary ml-2">Search</button>
+                </form>
+            </div>
         </div>
 
-<#--  // Filter \\-->
-       <div>
-           <form method="get" action="/main">
-               <input type="text" name="filter" value="${filter?ifExists}"/>
-<#--               csrf token only for post requests-->
-<#--               <input type="hidden" name="_csrf" value="${_csrf.token}" />-->
-               <button type="submit">Find message</button>
-           </form>
-       </div>
+
+<#-- // Adding new message \\-->
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Add new message
+        </a>
+
+        <div class="collapse" id="collapseExample">
+            <div class="form-group mt-3">
+                <form method="post" action="add" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="text" name="text" class="form-control" placeholder="Enter message"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="tag" class="form-control" placeholder="Tag"/>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-file">
+                            <input type="file" name="file" id="customFile" />
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                    </div>
+                    <input type="hidden" name="_csrf" value="${_csrf.token}" />
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Add message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
 
 <#-- // List of messages \\ -->
-        <div>
-            <h3>All messages: </h3>
-        <#list messages as message>
-            <div>
-                <b>${message.id}</b>
-                <b>${message.text}</b>
-                <i>${message.tag}</i>
-                <strong>${message.authorName}</strong>
-                <div>
-                    <#if message.filename??>
-                        <img src="/img/${message.filename}"
-                    </#if>
+        <div class="card-columns">
+            <#list messages as message>
+                <div class="card my-3";">
+    <#--                <b>${message.id}</b>-->
+                    <div>
+                        <#if message.filename??>
+                            <img src="/img/${message.filename}" class="card-img-top">
+                        </#if>
+                    </div>
+                    <div class="m-2">
+                        <b>${message.text}</b>
+                        <i>${message.tag}</i>
+                    </div>
+                    <div class="card-footer text-muted">
+                        ${message.authorName}
+                    </div>
                 </div>
-            </div>
-            <#else>No messages
-        </#list>
+                <#else>No messages
+            </#list>
         </div>
     </@c.page>
