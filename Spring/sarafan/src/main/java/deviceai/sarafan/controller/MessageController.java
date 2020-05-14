@@ -1,11 +1,14 @@
 package deviceai.sarafan.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import deviceai.sarafan.domain.Message;
+import deviceai.sarafan.domain.Views;
 import deviceai.sarafan.repo.MessageRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -23,17 +26,20 @@ public class MessageController {
 
     //GET ALL MESSAGES
     @GetMapping
+    @JsonView(Views.IdName.class)
     public List<Message> list() {
         return messageRepo.findAll();
     }
     //GET MESSAGE BY ID
     @GetMapping("{id}")
+    @JsonView(Views.FullMessage.class)
     public Message getOne (@PathVariable("id") Message message){
         return message;
     }
     //CREATING MESSAGE
     @PostMapping
     public Message create (@RequestBody Message message){
+        message.setGetCreationDate(LocalDateTime.now());
         return messageRepo.save(message);
     }
     //UPDATING MESSAGE
